@@ -92,6 +92,8 @@ namespace ShaderForge {
 
 		public bool hasPropertiesWithInstancing = false;
 
+		public bool usesAudioLinkTexture = false;
+
 
 		int shaderTarget = 3; // Shader target: #pragma target 3.0
 		public List<RenderPlatform> includeRenderers;

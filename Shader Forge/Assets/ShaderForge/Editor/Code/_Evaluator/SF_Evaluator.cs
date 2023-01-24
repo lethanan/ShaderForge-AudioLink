@@ -450,6 +450,10 @@ namespace ShaderForge {
 					dependencies.frag_facing = true;
 				}
 
+				if( n is SFN_AudioLink ) {
+					dependencies.usesAudioLinkTexture = true;
+				}
+
 				if( ps.catGeometry.IsDoubleSided() ) {
 					dependencies.frag_facing = true;
 				}
@@ -517,7 +521,6 @@ namespace ShaderForge {
 				App( "_StencilOpFail (\"Stencil Fail Operation\", Float) = 0" );
 				App( "_StencilOpZFail (\"Stencil Z-Fail Operation\", Float) = 0" );
 			}
-
 
 
 			End();
@@ -903,7 +906,11 @@ namespace ShaderForge {
 				App( "uniform float4 unity_FogColor;" );
 			}
 
-
+            if (dependencies.usesAudioLinkTexture)
+            {
+				App("SamplerState sampler_AudioGraph_Point_Repeat;");
+				App("Texture2D<float4> _AudioTexture;");
+            }
 			 
 			PropertiesCG();
 
