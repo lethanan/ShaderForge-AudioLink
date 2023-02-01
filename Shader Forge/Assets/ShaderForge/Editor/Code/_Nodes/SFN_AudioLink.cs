@@ -15,30 +15,18 @@ namespace ShaderForge {
 			base.Initialize( "AudioLink" );
 			//base.PrepareArithmetic(5);
 
-			base.alwaysDefineVariable = true;
-			base.shaderGenMode = ShaderGenerationMode.OffUniform;
-			base.showColor = true;
 			UseLowerReadonlyValues( true );
 
 			connectors = new SF_NodeConnector[]{
-				SF_NodeConnector.Create(this,"OUT","",ConType.cOutput,ValueType.VTvPending,false),
-				SF_NodeConnector.Create(this,"A","A",ConType.cInput,ValueType.VTvPending,false).SetRequired(true),
-				SF_NodeConnector.Create(this,"B","B",ConType.cInput,ValueType.VTvPending,false).SetRequired(true),
+				SF_NodeConnector.Create(this,"OUT","",ConType.cOutput,ValueType.VTv1,false),
+				SF_NodeConnector.Create(this,"UVIN","XY",ConType.cInput,ValueType.VTv2,false).SetRequired(true),
 			};
 
 
-			SetExtensionConnectorChain("B");
-
-			base.conGroup = ScriptableObject.CreateInstance<SFNCG_Arithmetic>().Initialize( connectors[0], connectors[1], connectors[2]);
+			SetExtensionConnectorChain("UVIN");
 
 		}
 
-		public override void GetModularShaderFixes( out string prefix, out string infix, out string suffix ) {
-			//prefix = "AudioLinkData(uint2(";
-			prefix = "_AudioTexture.Sample(sampler_AudioGraph_Point_Repeat, uint2(";
-			infix  = ", ";
-			suffix = "))";
-		}
 		public override bool UpdatesOverTime()
 		{
 			return true;
@@ -52,9 +40,8 @@ namespace ShaderForge {
 
 
 			string evalStr = "";
-
 			//evalStr += "AudioLinkData(uint2("+GetConnectorByStringID("A").TryEvaluate()+","+ GetConnectorByStringID("B").TryEvaluate() + "))";
-			evalStr += "_AudioTexture.Sample(sampler_AudioGraph_Point_Repeat, uint2(" + GetConnectorByStringID("A").TryEvaluate()+","+ GetConnectorByStringID("B").TryEvaluate() + "))";
+			evalStr += "_AudioTexture.Sample(sampler_AudioGraph_Point_Repeat, float2(" + GetInputData("UVIN").dataUniform.x / 64 + ","+ GetInputData("UVIN").dataUniform.y / 64 + "))";
 
 			return evalStr;
 		}

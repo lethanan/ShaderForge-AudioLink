@@ -305,6 +305,7 @@ namespace ShaderForge {
 
 			string catAudioLink = "Audio Link/";
 			AddTemplate(typeof(SFN_AudioLink), catAudioLink + "AudioLink").MarkAsNewNode();
+			AddTemplate(typeof(SFN_AudioLinkCoordinates), catAudioLink + "AudioLink Preset").MarkAsNewNode();
 
 
 			string catMathConst = "Math Constants/";
