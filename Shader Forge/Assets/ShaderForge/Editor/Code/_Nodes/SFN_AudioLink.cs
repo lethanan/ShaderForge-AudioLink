@@ -13,12 +13,11 @@ namespace ShaderForge {
 
 		public override void Initialize() {
 			base.Initialize( "AudioLink" );
-			//base.PrepareArithmetic(5);
 
 			UseLowerReadonlyValues( true );
 
 			connectors = new SF_NodeConnector[]{
-				SF_NodeConnector.Create(this,"OUT","",ConType.cOutput,ValueType.VTv1,false),
+				SF_NodeConnector.Create(this,"OUT","",ConType.cOutput,ValueType.VTv3,false),
 				SF_NodeConnector.Create(this,"UVIN","XY",ConType.cInput,ValueType.VTv2,false).SetRequired(true),
 			};
 
@@ -41,7 +40,7 @@ namespace ShaderForge {
 
 			string evalStr = "";
 			//evalStr += "AudioLinkData(uint2("+GetConnectorByStringID("A").TryEvaluate()+","+ GetConnectorByStringID("B").TryEvaluate() + "))";
-			evalStr += "_AudioTexture.Sample(sampler_AudioGraph_Point_Repeat, float2(" + GetInputData("UVIN").dataUniform.x / 64 + ","+ GetInputData("UVIN").dataUniform.y / 64 + "))";
+			evalStr += "_AudioTexture.Sample(sampler_AudioGraph_Point_Repeat, float2(" + GetConnectorByStringID("UVIN").TryEvaluate() + "))";
 
 			return evalStr;
 		}

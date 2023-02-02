@@ -910,6 +910,7 @@ namespace ShaderForge {
             {
 				App("SamplerState sampler_AudioGraph_Point_Repeat;");
 				App("Texture2D<float4> _AudioTexture;");
+				App("uniform float4 _AudioTexture_TexelSize;");
             }
 			 
 			PropertiesCG();

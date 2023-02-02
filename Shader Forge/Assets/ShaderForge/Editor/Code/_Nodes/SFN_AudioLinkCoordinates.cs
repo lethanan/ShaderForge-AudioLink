@@ -60,7 +60,7 @@ namespace ShaderForge
 			Vector2 o = AL_presets[(int)AL_preset_selected];
 			texture.dataUniform.x = o.x;
 			texture.dataUniform.y = o.y;
-			return precision.ToCode() + "2(" + o.x + "," + o.y + ")";
+			return "(float2(" + o.x + "," + o.y + ")  * -_AudioTexture_TexelSize.xy)";
 
 		}
 
