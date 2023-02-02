@@ -1,6 +1,6 @@
 This fork simply adds an AudioLink node, so that AudioLink compatible shaders can be made in Shader Forge. 
 
-The AudioLink node takes the X and Y coordinates (respectively) of the AudioLink texture and outputs a float. For example, use 0,0 for bass, 0,1 for lower mid, 0,2 for upper mid, and 0,3 for treble. The entire coordinates can be found in this unofficial reference for the AudioLink texture: https://docs.google.com/spreadsheets/d/1PkA98uI_zslpTr6ARBVGOBSq5Yna0rKPe_RWbdtbERM/
+The AudioLink node takes the X and Y coordinates of the AudioLink texture and outputs a float. There are a handful of presets built-in. Otherwise, you can put in custom coordinates, which can be found in this unofficial reference for the AudioLink texture: https://docs.google.com/spreadsheets/d/1PkA98uI_zslpTr6ARBVGOBSq5Yna0rKPe_RWbdtbERM/
 
 You can preview the AudioLink effects if you put the AudioLinkAvatar prefab in your scene, add a sound file to the input, and press play. The effects should appear in the Shader Forge preview in real-time.
 
