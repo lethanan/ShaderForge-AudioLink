@@ -8,9 +8,12 @@ Please note that the implementation is currently very simple and largely unteste
 
 For more info on AudioLink, see https://github.com/llealloo/vrc-udon-audio-link
 
+For a video tutorial on how to use this, see: https://youtu.be/q0I4rVN3D9w
+
 -------------------------------
 
 ORIGINAL SHADER FORGE README:
+
 hey everyone~
 
 I will occasionally update this repository with fixes and features!
