@@ -17,10 +17,17 @@ namespace ShaderForge {
 			UseLowerReadonlyValues( true );
 
 			connectors = new SF_NodeConnector[]{
-				SF_NodeConnector.Create(this,"OUT","",ConType.cOutput,ValueType.VTv3,false),
+
+				SF_NodeConnector.Create(this,"RGB","RGB",ConType.cOutput,ValueType.VTv3).Outputting(OutChannel.RGB),
+				SF_NodeConnector.Create(this,"R","R",ConType.cOutput,   ValueType.VTv1).WithColor(Color.red).Outputting(OutChannel.R),
+				SF_NodeConnector.Create(this,"G","G",ConType.cOutput,ValueType.VTv1).WithColor(Color.green).Outputting(OutChannel.G),
+				SF_NodeConnector.Create(this,"B","B",ConType.cOutput,ValueType.VTv1).WithColor(Color.blue).Outputting(OutChannel.B),
 				SF_NodeConnector.Create(this,"UVIN","XY",ConType.cInput,ValueType.VTv2,false).SetRequired(true),
 			};
 
+			base.alwaysDefineVariable = true;
+			base.neverDefineVariable = false;
+			base.texture.CompCount = 3;
 
 			SetExtensionConnectorChain("UVIN");
 
@@ -33,15 +40,23 @@ namespace ShaderForge {
 
 		public override bool IsUniformOutput()
 		{
-			return true;
+			return false;
 		}
+
+		public override int GetEvaluatedComponentCount()
+		{
+			return 3;
+		}
+
 		public override string Evaluate( OutChannel channel = OutChannel.All ) {
 
 
-			string evalStr = "";
+			string evalStr = "(_AudioTexture.Sample(sampler_AudioGraph_Point_Repeat, float2(" + GetConnectorByStringID("UVIN").TryEvaluate() + ")))";
 			//evalStr += "AudioLinkData(uint2("+GetConnectorByStringID("A").TryEvaluate()+","+ GetConnectorByStringID("B").TryEvaluate() + "))";
-			evalStr += "_AudioTexture.Sample(sampler_AudioGraph_Point_Repeat, float2(" + GetConnectorByStringID("UVIN").TryEvaluate() + "))";
-
+			//if(channel == OutChannel.All) evalStr += ".rgb";
+			//else if(channel == OutChannel.R) evalStr += ".r";
+			//else if(channel == OutChannel.G) evalStr += ".g";
+			//else if(channel == OutChannel.B) evalStr += ".b";
 			return evalStr;
 		}
 
